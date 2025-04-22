@@ -54,5 +54,4 @@ jobs:
         FLYWAY_URL: "jdbc:postgresql://localhost:5432/testdb"
         FLYWAY_USER: testuser
         FLYWAY_PASSWORD: testpassword
-        validateMigrationNaming: true
-      run: flyway migrate -locations=filesystem:sql/migrations
+      run: flyway -validateMigrationNaming=true migrate -locations=filesystem:sql/migrations
