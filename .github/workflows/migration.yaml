@@ -44,6 +44,10 @@ jobs:
         tar -xzf flyway-commandline.tar.gz
         sudo ln -s `pwd`/flyway-11.7.2/flyway /usr/local/bin/flyway
 
+    # Установка psql
+    - name: Install psql
+      run: sudo apt install -y postgresql-client
+
     # Проверяем, что Postgres работает и доступен перед выполнением миграций, чтобы избежать ошибок подключения
     - name: Wait for Postgres
       run: until pg_isready -h localhost -p 5432; do sleep 1; done
@@ -55,3 +59,8 @@ jobs:
         FLYWAY_USER: testuser
         FLYWAY_PASSWORD: testpassword
       run: flyway -validateMigrationNaming=true migrate -locations=filesystem:sql/migrations
+
+
+    - name: Select schema history
+      run: |
+        PGPASSWORD=testpassword psql -h localhost -U testuser -d testdb -c "SELECT * FROM flyway_schema_history;" 
