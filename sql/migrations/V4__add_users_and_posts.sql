@@ -3,6 +3,6 @@ WITH u AS(
     VALUES ("Alice"), ("Bob")
     RETURNING id
 )
-INSERT into posts (text, owner)
+INSERT into posts (text, owner_id)
 select concat("My ", u.id, "post"), u.id
 from u;
