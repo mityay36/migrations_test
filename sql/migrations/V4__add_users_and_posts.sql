@@ -1,8 +1,8 @@
-WITH u AS(
-    INSERT INTO users (name)
-    VALUES ("Alice"), ("Bob")
-    RETURNING id
+WITH u AS (
+  INSERT INTO users (name)
+  VALUES ('Alice'), ('Bob')
+  RETURNING id
 )
-INSERT into posts (text, owner_id)
-select concat("My ", u.id, "post"), u.id
-from u;
+INSERT INTO posts (text, owner_id)
+SELECT CONCAT('My ', u.id, ' post'), u.id
+FROM u;
